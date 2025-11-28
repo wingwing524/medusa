@@ -60,3 +60,20 @@ Join our [Discord server](https://discord.com/invite/medusajs) to meet other com
 - [Twitter](https://twitter.com/medusajs)
 - [LinkedIn](https://www.linkedin.com/company/medusajs)
 - [Medusa Blog](https://medusajs.com/blog/)
+
+**Deploy to Railway**
+- **Services:** Create a new Railway project from your GitHub repo, then add `PostgreSQL` and `Redis` services.
+- **Variables:** Set app variables using values from the DB/Redis services:
+  - `DATABASE_URL`: reference the PostgreSQL connection string
+  - `REDIS_URL`: reference the Redis connection string
+  - `ADMIN_CORS`, `STORE_CORS`, `AUTH_CORS`: use `*` to start, tighten later
+  - `JWT_SECRET`, `COOKIE_SECRET`: long random strings
+  - `NODE_ENV=production`, `MEDUSA_WORKER_MODE=shared`
+  - Optional: `MEDUSA_BACKEND_URL` set to your Railway public URL
+- **Commands (Railway settings):**
+  - Build Command: `npm run build`
+  - Pre-Deploy Command: `npm run predeploy` (runs DB migrations)
+  - Start Command: `npm run start`
+- **Healthcheck:** Configure Railway healthcheck path to `/health` (expects 200).
+- **Seeding (optional):** One-time seed via `npm run seed` from the Railway shell after first deploy.
+- **Notes:** Railway sets `PORT` automatically. Do not hardcode `PORT`. Start in `shared` mode for simplicity; scale later by adding separate `server` and `worker` services if needed.
