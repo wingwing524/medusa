@@ -14,7 +14,7 @@
   ],
   "scripts": {
     "build": "medusa build",
-    "railway:build": "npm ci && npm run build",
+    "railway:build": "npm run build",
     "seed": "medusa exec ./src/scripts/seed.ts",
     "predeploy": "medusa db:migrate",
     "start": "medusa start",
